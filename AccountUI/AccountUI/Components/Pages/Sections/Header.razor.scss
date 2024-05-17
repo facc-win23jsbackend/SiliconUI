@@ -9,6 +9,10 @@ header {
         grid-template-columns: auto 1fr auto auto;
         gap: 40px;
 
+        .account-buttons {
+            display: flex;
+        }
+
 
         #menu {
 

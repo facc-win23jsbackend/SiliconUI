@@ -8,6 +8,9 @@ header .container {
   grid-template-columns: auto 1fr auto auto;
   gap: 40px;
 }
+header .container .account-buttons {
+  display: flex;
+}
 header .container #menu a {
   color: #33354D;
   text-decoration: none;

@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AccountUI.Client\AccountUI.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
   </ItemGroup>
 

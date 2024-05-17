@@ -1,13 +1,23 @@
-﻿
+﻿@using AccountUI.Client.Components
+@using Microsoft.AspNetCore.Components.Authorization
 
-<div class="container">
-    <aside class="sidemenu">
-        <AccountMenu />
-    </aside>
-    <section class="account-content">
-        @ChildContent
-    </section>
-</div>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+    <Authorized>
+        <div class="container">
+            <aside class="sidemenu">
+                <AccountMenu />
+            </aside>
+            <section class="account-content">
+                @ChildContent
+            </section>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }

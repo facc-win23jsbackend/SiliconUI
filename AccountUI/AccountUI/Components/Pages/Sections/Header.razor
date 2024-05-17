@@ -1,19 +1,32 @@
-﻿<header>
+﻿@using AccountUI.Client.Components
+@using Microsoft.AspNetCore.Components.Authorization
+<header>
     <div class="container">
-        <NavLink id="logo" href="/Home"><img src="./images/silicon-logo.svg" alt=""></NavLink>
+        <NavLink id="logo" href="/home"><img src="./images/silicon-logo.svg" alt=""></NavLink>
         <div id="menu">
             <nav>
-                <NavLink class="menuLinks" href="/Home">Overview</NavLink>
-                <NavLink class="menuLinks" href="/Home/#features">Features</NavLink>
-                <NavLink class="menuLinks" href="/Courses">Courses</NavLink>
-                <NavLink class="menuLinks" href="/Home/#footer">Contact</NavLink>
+                <NavLink class="menuLinks" href="/home">Overview</NavLink>
+                <AuthorizeView>
+                    <Authorized>
+                        <NavLink class="menuLinks" href="/courses">Courses</NavLink>
+                    </Authorized>
+                </AuthorizeView>
+                <AuthorizeView>
+                    <NotAuthorized>
+                        <NavLink class="menuLinks" href="/home/#features">Features</NavLink>
+                    </NotAuthorized>
+                </AuthorizeView>
+                <NavLink class="menuLinks" href="/home/#footer">Contact</NavLink>
             </nav>
         </div>
         <div class="account-buttons">
-            <NavLink class="btn-theme" href="/account-details"><i class="fa-solid fa-user"></i><span>Details</span></NavLink>
-            <NavLink asp-page="/account" asp-page-handler="SignOut" class="btn-gray"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</NavLink>
-            <NavLink class="btn-gray" href="/signin"><i class="fa-solid fa-right-to-bracket"></i><span>Sign In</span></NavLink>
-            <NavLink class="btn-theme" href="/signup"><i class="fa-solid fa-user-plus"></i><span>Sign Up</span></NavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="btn-theme" href="/account-details"><i class="fa-solid fa-user"></i><span>My Profile</span></NavLink>
+                </Authorized>
+            </AuthorizeView>
+            <LoginLogout/>
+            
         </div>
     </div>
 </header>

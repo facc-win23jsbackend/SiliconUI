@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+
+<AuthorizeView>
+    <Authorized>
+        <form action="authentication/logout" method="post">
+            <AntiforgeryToken />
+            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+            <button type="submit" class="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out
+            </button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <NavLink class="login-btn" href="authentication/login">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>Sign In
+        </NavLink>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.BaseUri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.BaseUri);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
