@@ -1,0 +1,39 @@
+.navLink {
+    display: block;
+    background-color: transparent;
+    padding: 10px 20px 10px 30px;
+    width: 100%;
+    color: #9397AD;
+    border: none;
+    border-radius: 7px;
+    text-align: left;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: #6366F1;
+        box-shadow: 0px 8px 18px -8px #6366F1;
+        color: white;
+        transition: 0.2s;
+
+        i {
+            color: white;
+        }
+    }
+
+    i {
+        margin-right: 10px;
+        color: #9397AD;
+    }
+}
+
+.navLink.active {
+    background-color: #6366F1;
+    box-shadow: 0px 8px 18px -8px #6366F1;
+    color: white;
+
+    i {
+        color: white;
+    }
+}

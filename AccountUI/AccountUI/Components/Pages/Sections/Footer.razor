@@ -1,0 +1,50 @@
+﻿@inject NavigationManager Navigation
+
+@if (!shouldHideFooter)
+{
+    <footer id="footer">
+        <div class="container">
+            <div class="social-media-box">
+                <a><img src="./images/icons/facebook-icon.svg" alt="facebook-icon"></a>
+                <a><img src="./images/icons/twitter-icon.svg" alt="twitter-icon"></a>
+                <a><img src="./images/icons/instagram-icon.svg" alt="instagram-icon"></a>
+                <a><img src="./images/icons/youtube-icon.svg" alt="youtube-icon"></a>
+            </div>
+            <p>
+                <strong>© @DateTime.Now.Year Silicon. All rights reserved.</strong> Pulvinar urna condimentum amet tempor, ornare integer. Lorem odio justo malesuada suspendisse<br>
+                viverra aliquet quisque turpis non. Feugiat in odio non nunc ornare consectetur.
+            </p>
+        </div>
+    </footer>
+}
+
+@code {
+    private bool shouldHideFooter;
+
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += HandleLocationChanged!;
+        UpdateFooterVisibility();
+    }
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        UpdateFooterVisibility();
+    }
+
+    private void UpdateFooterVisibility()
+    {
+        var currentUri = Navigation.Uri.ToLower();
+        shouldHideFooter = currentUri.Contains("/account-details") || currentUri.Contains("/notifications")
+        || currentUri.Contains("/signin")
+        || currentUri.Contains("/signup")
+        || currentUri.Contains("/singlecourse");
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= HandleLocationChanged!;
+    }
+}

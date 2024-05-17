@@ -1,0 +1,141 @@
+#newsletter {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-color: #F3F6FF;
+
+
+    .container {
+        padding-left: 100px;
+        padding-right: 100px;
+        position: relative;
+
+        img {
+            position: absolute;
+            right: 520px;
+            top: 0px;
+        }
+
+
+        .policy-text {
+            margin-top: 20px;
+            display: flex;
+
+
+            #blue-star {
+                color: #6366F1;
+            }
+        }
+
+
+        h1 {
+            font-size: 40px;
+            font-weight: 900;
+        }
+
+
+        #subscribeForm {
+
+            .sign-up-content {
+                display: flex;
+                margin-top: 50px;
+
+
+                .sign-up-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-radius: 10px;
+                    border: 1px solid #B4B7C9;
+                    background-color: #FFF;
+                    width: 80%;
+
+
+                    .sign-up {
+                        display: flex;
+                        align-items: center;
+                        border: none;
+                        width: 100%;
+                        color: #565973;
+
+
+                        i {
+                            margin-left: 15px;
+                            margin-right: 10px;
+                            color: #565973;
+                        }
+
+
+                        .email-input {
+                            border: none;
+                            outline: none;
+                            width: 100%;
+                        }
+                    }
+                }
+
+
+                .btnSubscribe {
+                    background-color: #6366F1;
+                    color: white;
+                    border: none;
+                    padding: 20px 40px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    font-weight: bold;
+                    box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.2);
+                    transition: 0.3s ease;
+                    margin-left: 30px;
+
+                    &:hover {
+                        background-color: black;
+                        transition: 0.3s ease;
+                    }
+                }
+            }
+
+            .errorMessage {
+                color: red;
+                margin-top: 10px;
+                font-weight: 700;
+            }
+
+            .successMessage {
+                color: green;
+                margin-top: 10px;
+                font-weight: 700;
+            }
+        }
+
+
+
+        .content {
+            display: flex;
+            margin-top: 40px;
+
+
+            h2 {
+                font-size: 30px;
+                font-weight: 900;
+            }
+
+
+            .checkbox-content {
+                margin-left: 20px;
+
+
+                .check-box-text {
+                    margin-left: 50px;
+                    
+
+
+                    label {
+                        margin-left: 10px;
+                        margin-top: 10px;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

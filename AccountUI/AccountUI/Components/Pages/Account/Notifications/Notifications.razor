@@ -1,0 +1,70 @@
+﻿@page "/notifications"
+@rendermode InteractiveServer
+@using AccountUI.Components.Layout
+@using AccountUI.Models
+
+<PageTitle>Silicon - Notifications</PageTitle>
+<AccountLayout>
+    <div class="account-notifications">
+        @if (formSubmitted)
+        {
+            <div class="alert alert-success">
+                Saving succeeded!
+            </div>
+        }
+        else if (formInvalid)
+        {
+            <div class="alert alert-danger">
+                Make sure you've entered all required fields!
+            </div>
+        }
+        <EditForm FormName="notificationsform" Model="notificationsDetails" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit" id="notifications-form" method="post" novalidate>
+            <DataAnnotationsValidator />
+
+            <h1>Notifications</h1>
+            <div class="form-content">
+                <div class="input-group">
+                    <label for="Notifications-Details">Preferred email for notifications*</label>
+                    <InputText id="Notifications-Details" @bind-Value="notificationsDetails.Email" placeholder="Enter your email address.." />
+                    <ValidationMessage For="@(() => notificationsDetails.Email)" class="validation-message" />
+                </div>
+                <div class="input-group switch-group">
+                    <label class="switch">
+                        <InputCheckbox @bind-Value="notificationsDetails.SubscribeToNewsletter" />
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="subscribeNewsletter">Subscribe to Newsletter</span>
+                </div>
+
+
+                <div class="button-box">
+                    <button type="button" class="btn-gray">Cancel</button>
+                    <button type="submit" class="btn-theme">Save changes</button>
+                </div>
+
+            </div>
+            
+        </EditForm>
+
+    </div>
+
+</AccountLayout>
+
+
+@code {
+
+    private NotificationsFormModel notificationsDetails = new NotificationsFormModel();
+    private bool formSubmitted = false;
+    private bool formInvalid = false;
+
+    private void HandleValidSubmit()
+    {
+        formSubmitted = true;
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        formInvalid = true;
+        formSubmitted = false;
+    }
+}

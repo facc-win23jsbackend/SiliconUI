@@ -1,0 +1,35 @@
+﻿@using AccountUI.Models
+
+
+<section id="signin">
+    <div class="container">
+
+        <EditForm FormName="signin" Model="signinForm" method="post" novalidate>
+
+            <h1>Welcome Back</h1>
+            <p>Don't have an account yet? <a href="/signup">Sign up here</a></p>
+
+            <div class="content">
+                <div id="form-email" class="input-group">
+                    <label for="Email-Signin">Email address*</label>
+                    <InputText id="Email-Signin" @bind-Value="signinForm.Email" placeholder="Enter your email address.." />
+                </div>
+                <div id="form-password" class="input-group">
+                    <label for="Password-Signin">Password*</label>
+                    <InputText id="Password-Signin" @bind-Value="signinForm.Password" placeholder="Enter your password.." />
+                </div>
+                <div id="form-remember" class="checkbox-group">
+                    <InputCheckbox id="RememberMeCheckbox" @bind-Value="signinForm.RememberMe" />
+                    <label for="RememberMeCheckbox">Remember me</label>
+                </div>
+                <button id="form-button" class="btn-theme">Sign In</button>
+                <a id="forgot-password" href="/forgot">Forgot your password?</a>
+            </div>
+        </EditForm>
+    </div>
+</section>
+
+@code {
+    private SignInFormModel signinForm = new SignInFormModel();
+
+}

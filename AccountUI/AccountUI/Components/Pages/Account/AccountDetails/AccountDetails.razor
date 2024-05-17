@@ -1,0 +1,99 @@
+﻿@page "/account-details"
+@rendermode InteractiveServer
+@using AccountUI.Components.Layout
+@using AccountUI.Models
+@inject NavigationManager Navigation
+
+
+<PageTitle>Silicon - Account Details</PageTitle>
+<AccountLayout>
+
+    <div class="account-details">
+        @if (formSubmitted)
+        {
+            <div class="alert alert-success">
+                Saving succeeded!
+            </div>
+        }
+        else if (formInvalid)
+        {
+            <div class="alert alert-danger">
+                Make sure you've entered all required fields!
+            </div>
+        }
+        <EditForm FormName="accountdetailsform" Model="accountDetails" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit" id="account-details-form" method="post" novalidate>
+            <DataAnnotationsValidator />
+            
+            <h1>Account Details</h1>
+            <h5>Account/Address info</h5>
+            <div class="form-content">
+                <div id="form-firstname" class="input-group">
+                    <label for="FirstName-Details">First name*</label>
+                    <InputText id="FirstName-Details" @bind-Value="accountDetails.FirstName" placeholder="Enter your first name.." />
+                    <ValidationMessage For="@(() => accountDetails.FirstName)" class="validation-message" />
+                </div>
+                <div id="form-lastname" class="input-group">
+                    <label for="LastName-Details">Last name*</label>
+                    <InputText id="LastName-Details" @bind-Value="accountDetails.LastName" placeholder="Enter your last name.." />
+                    <ValidationMessage For="@(() => accountDetails.LastName)" class="validation-message" />
+                </div>
+                <div id="form-email" class="input-group">
+                    <label for="Email-Details">Email*</label>
+                    <InputText id="Email-Details" @bind-Value="accountDetails.Email" placeholder="example@domain.com" />
+                    <ValidationMessage For="@(() => accountDetails.Email)" class="validation-message" />
+                </div>
+                <div id="form-phone" class="input-group">
+                    <label for="Phone-Details">Phone*</label>
+                    <InputText id="Phone-Details" @bind-Value="accountDetails.PhoneNumber" placeholder="Enter your phone number.." />
+                    <ValidationMessage For="@(() => accountDetails.PhoneNumber)" class="validation-message" />
+                </div>
+                <div id="form-biography" class="input-group">
+                    <label for="Biography-Detail">Biography (optional)</label>
+                    <textarea id="Biography-Details" @bind="accountDetails.Biography" class="validation-message" placeholder="Add a short bio.."></textarea>
+                </div>
+                <div id="streetname1" class="input-group">
+                    <label for="Streetname1-Details">Address line 1*</label>
+                    <InputText id="Streetname1-Details" @bind-Value="accountDetails.Addressline_1" placeholder="Enter your address.." />
+                    <ValidationMessage For="@(() => accountDetails.Addressline_1)" class="validation-message" />
+                </div>
+                <div id="streetname2" class="input-group">
+                    <label for="Streetname2-Details">Address line 2 (optional)</label>
+                    <InputText id="Streetname2-Details" @bind-Value="accountDetails.Addressline_2" class="validation-message" placeholder="Enter your second address (optional).." />
+                </div>
+                <div id="postal-code" class="input-group">
+                    <label for="Postalcode-Details">Postal code*</label>
+                    <InputText id="Postalcode-Details" @bind-Value="accountDetails.PostalCode" placeholder="123 45" />
+                    <ValidationMessage For="@(() => accountDetails.PostalCode)" class="validation-message" />
+                </div>
+                <div id="city" class="input-group">
+                    <label for="City-Details">City*</label>
+                    <InputText id="City-Details" @bind-Value="accountDetails.City" placeholder="Example: Stockholm.." />
+                    <ValidationMessage For="@(() => accountDetails.City)" class="validation-message" />
+                </div>
+                <div class="button-box">
+                    <button type="button" id="form-button-save" class="btn-gray">Cancel</button>
+                    <button type="submit" id="form-button-cancel" class="btn-theme" asp-page-handler="SaveBasicInfo">Save changes</button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+
+
+</AccountLayout>
+
+@code {
+    private AccountDetailsFormModel accountDetails = new AccountDetailsFormModel();
+    private bool formSubmitted = false;
+    private bool formInvalid = false;
+
+    private void HandleValidSubmit()
+    {
+        formSubmitted = true;
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        formInvalid = true;
+        formSubmitted = false;
+    }
+}

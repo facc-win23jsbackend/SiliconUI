@@ -1,0 +1,54 @@
+﻿#signin {
+  padding-top: 100px;
+  background-color: white;
+  height: 100%;
+}
+#signin .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#signin .container form .incorrect-text {
+  color: #fff;
+  background-color: #ff9191;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid red;
+  text-align: center;
+}
+#signin .container form .content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "email" "password" "confirm" "remember" "button" "forgot";
+}
+#signin .container form .content #form-email {
+  grid-area: email;
+}
+#signin .container form .content #form-password {
+  grid-area: password;
+}
+#signin .container form .content #form-remember {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  grid-area: remember;
+}
+#signin .container form .content #form-button {
+  grid-area: button;
+  margin-top: 1rem;
+}
+#signin .container form .content .btn-theme {
+  box-shadow: 0px 8px 18px -8px #6366F1;
+}
+#signin .container form .content #forgot-password {
+  grid-area: forgot;
+  text-align: center;
+  margin-top: 10px;
+}
+#signin .container form .content label {
+  font-weight: 700;
+  margin-bottom: 5px;
+}

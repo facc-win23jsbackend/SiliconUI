@@ -1,0 +1,94 @@
+﻿[
+  {
+    "outputFile": "wwwroot/app..css",
+    "inputFile": "wwwroot/app..scss"
+  },
+  {
+    "outputFile": "wwwroot/app.css",
+    "inputFile": "wwwroot/app.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Account/Notifications/Notifications.css",
+    "inputFile": "Components/Pages/Account/Notifications/Notifications.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Account/AccountDetails/AccountDetails.css",
+    "inputFile": "Components/Pages/Account/AccountDetails/AccountDetails.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Account/Notifications/Notifications.razor.css",
+    "inputFile": "Components/Pages/Account/Notifications/Notifications.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Account/AccountDetails/AccountDetails.razor.css",
+    "inputFile": "Components/Pages/Account/AccountDetails/AccountDetails.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Account/AccountMenu.razor.css",
+    "inputFile": "Components/Pages/Account/AccountMenu.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Account/AccountLayout.razor.css",
+    "inputFile": "Components/Pages/Account/AccountLayout.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Header.razor.css",
+    "inputFile": "Components/Pages/Sections/Header.razor.scss"
+  },
+  {
+    "outputFile": "wwwroot/styles/sections/Header.css",
+    "inputFile": "wwwroot/styles/sections/Header.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Showcase.razor..css",
+    "inputFile": "Components/Pages/Sections/Showcase.razor..scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Showcase.razor.css",
+    "inputFile": "Components/Pages/Sections/Showcase.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Features.razor.css",
+    "inputFile": "Components/Pages/Sections/Features.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/LightDark.razor.css",
+    "inputFile": "Components/Pages/Sections/LightDark.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/ManageYourWork.razor.css",
+    "inputFile": "Components/Pages/Sections/ManageYourWork.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Download.razor.css",
+    "inputFile": "Components/Pages/Sections/Download.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Intergrate.razor.css",
+    "inputFile": "Components/Pages/Sections/Intergrate.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Newsletter.razor.css",
+    "inputFile": "Components/Pages/Sections/Newsletter.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Sections/Footer.razor.css",
+    "inputFile": "Components/Pages/Sections/Footer.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/SignIn.razor.css",
+    "inputFile": "Components/Pages/SignIn.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/SignIn/SignInForm.razor.css",
+    "inputFile": "Components/Pages/SignIn/SignInForm.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/SginUp/SignUpForm.razor.css",
+    "inputFile": "Components/Pages/SginUp/SignUpForm.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Singlecourses.razor.css",
+    "inputFile": "Components/Pages/Singlecourses.razor.scss"
+  }
+]

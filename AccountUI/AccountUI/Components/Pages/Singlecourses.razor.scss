@@ -1,0 +1,252 @@
+.single-course {
+    padding-bottom: 100px;
+
+
+    .banner-section {
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 670px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 34, 0.7);
+        }
+
+
+        .container {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            justify-content: center;
+            align-items: left;
+            color: #fff;
+            padding: 20px;
+
+            .info-box {
+                display: flex;
+
+                .best-seller {
+                    background-color: #22C55E;
+                    padding: 4px 12px;
+                    border-radius: 5px;
+                    font-weight: 700;
+                }
+
+                .digital {
+                    background-color: #EFF2FC;
+                    padding: 4px 12px;
+                    border-radius: 5px;
+                    color: black;
+                    margin-left: 15px;
+                    font-weight: 700;
+                }
+            }
+
+            h1 {
+                font-weight: 700;
+                margin-top: 20px;
+            }
+
+            p {
+                color: #D4D7E5;
+                margin-top: 20px;
+            }
+
+            .course-meta {
+                margin-top: 50px;
+
+                .stars {
+                    color: #FFBA08;
+                }
+
+                span {
+                    color: #D4D7E5;
+                }
+
+                span:not(:first-child) {
+                    margin-left: 15px;
+
+                    i {
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            .created-by {
+                margin-top: 150px;
+                display: flex;
+                align-items: center;
+
+                img {
+                    height: 60px;
+                    width: 60px;
+                }
+
+                .text-content {
+                    margin-left: 20px;
+                    margin-top: 20px;
+
+                    h3 {
+                        font-size: 16px;
+                        font-weight: 600;
+                        margin-bottom: 10px;
+                    }
+
+                    p {
+                        font-size: 16px;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .content-section {
+
+        .container {
+            padding-top: 100px;
+            display: flex;
+
+
+            .course-description {
+                flex: 1;
+
+
+                .content1 {
+
+                    h1 {
+                        font-weight: 900;
+                    }
+
+                    p {
+                        margin-top: 20px;
+                        color: #565973;
+                    }
+                }
+
+                .content2 {
+                    margin-top: 50px;
+
+                    h2 {
+                        font-weight: 900;
+                    }
+
+                    .text-box {
+                        display: flex;
+                        margin-top: 30px;
+                        align-items: center;
+
+                        i {
+                            color: #6366F1;
+                            font-size: 1.5rem;
+                        }
+
+                        p {
+                            font-size: 1rem;
+                            margin: 0;
+                            line-height: 1.5;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+
+            aside {
+                width: 400px;
+                padding: 30px;
+                border: 1px solid #E2E5F1;
+                border-radius: 10px;
+                box-shadow: 0px 5px 10px #E2E5F1;
+
+                h4 {
+                    font-weight: 900;
+                }
+
+                .text-box {
+                    display: flex;
+                    margin-top: 30px;
+                    align-items: center;
+
+                    i {
+                        color: #565973;
+                        font-size: 1.5rem;
+                    }
+
+                    p {
+                        color: #565973;
+                        font-size: 1rem;
+                        margin: 0;
+                        line-height: 1.5;
+                        margin-left: 10px;
+                    }
+                }
+
+                .course-price {
+                    display: flex;
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+
+                    h2 {
+                        font-weight: 900;
+                    }
+
+                    span {
+                        color: #565973;
+                        font-size: 20px;
+                        font-weight: 400;
+                        margin-left: 10px;
+                        margin-top: 5px;
+                        text-decoration: line-through;
+                    }
+                }
+            }
+        }
+    }
+
+    .details-section {
+        padding-top: 100px;
+
+        .container {
+
+            h1 {
+                font-weight: 900;
+            }
+
+            .text-box {
+                display: flex;
+                margin-top: 40px;
+
+                .number-box {
+                    display: flex;
+                    font-size: 25px;
+                    font-weight: 900;
+                    border: 10px solid #E2E5F1;
+                    height: 70px;
+                    width: 70px;
+                    border-radius: 50%;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .content-box {
+                    margin-left: 20px;
+                    
+                    h4 {
+                        font-weight: 900;
+                    }
+                }
+            }
+        }
+    }
+}

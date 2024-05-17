@@ -1,0 +1,29 @@
+﻿.account-menu {
+  background-color: #fff;
+  width: 250px;
+  height: 100%;
+  border: none;
+  padding-top: 50px;
+  padding-right: 20px;
+  border-right: 2px solid #E2E5F1;
+}
+.account-menu .user-profile {
+  margin-bottom: 1rem;
+}
+.account-menu .user-profile img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.account-menu .user-profile h4 {
+  color: #333;
+  margin-top: 0.5rem;
+}
+.account-menu .user-profile p {
+  color: #666;
+  margin-top: 0.25rem;
+}
+.account-menu .nav {
+  display: flex;
+  flex-direction: column;
+}

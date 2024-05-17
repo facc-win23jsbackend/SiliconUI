@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\images\brands\brand-1.svg" />
+    <None Include="wwwroot\images\brands\brand-2.svg" />
+    <None Include="wwwroot\images\brands\brand-3.svg" />
+    <None Include="wwwroot\images\brands\brand-4.svg" />
+    <None Include="wwwroot\images\icons\dropbox-icon.svg" />
+    <None Include="wwwroot\images\icons\evernote-icon.svg" />
+    <None Include="wwwroot\images\icons\facebook-icon.svg" />
+    <None Include="wwwroot\images\icons\gmail-icon.svg" />
+    <None Include="wwwroot\images\icons\google-icon.svg" />
+    <None Include="wwwroot\images\icons\instagram-icon.svg" />
+    <None Include="wwwroot\images\icons\mailchimp-icon.svg" />
+    <None Include="wwwroot\images\icons\slack-icon.svg" />
+    <None Include="wwwroot\images\icons\tasks-analytics.svg" />
+    <None Include="wwwroot\images\icons\trello-icon.svg" />
+    <None Include="wwwroot\images\icons\twitter-icon.svg" />
+    <None Include="wwwroot\images\icons\youtube-icon.svg" />
+    <None Include="wwwroot\images\icons\zoom-icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AccountUI.Client\AccountUI.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+﻿@using AccountUI.Models
+<section id="signup">
+    <div class="container">
+
+        <EditForm FormName="signup" Model="signupForm" method="post" novalidate>
+            <h1>Create Account</h1>
+            <p>Already have an account? <a href="/signin">Sign in here</a></p>
+
+            <div class="content">
+                <div id="form-firstname" class="input-group">
+                    <label>First name</label>
+                    <InputText id="FirstName-Signup" @bind-Value="signupForm.FirstName" placeholder="Enter your first name.." />
+                </div>
+                <div id="form-lastname" class="input-group">
+                    <label>Last name</label>
+                    <InputText id="LastName-Signup" @bind-Value="signupForm.LastName" placeholder="Enter your last name.." />
+                </div>
+                <div id="form-email" class="input-group">
+                    <label>Email</label>
+                    <InputText id="Email-Signup" @bind-Value="signupForm.Email" placeholder="Enter your email address.." />
+                </div>
+                <div id="form-password" class="input-group">
+                    <label>Password</label>
+                    <InputText id="Password-Signup" @bind-Value="signupForm.Password" placeholder="Enter your password.." />
+                </div>
+                <div id="form-confirm" class="input-group">
+                    <label>Confirm password</label>
+                    <InputText id="ConfirmPassword-Signup" @bind-Value="signupForm.ConfirmPassword" placeholder="Confirm your password.." />
+                </div>
+                <div id="form-terms" class="checkbox">
+                    <div class="checkbox-group">
+                        <div class="input-group">
+                            <InputCheckbox id="Checkbox-Signup" @bind-Value="signupForm.Terms" />
+                            <label>I agree to the <a href="/terms">Terms</a> & <a href="/conditions">Conditions</a>.</label>
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+                <button id="form-button" class="btn-theme" type="submit">Sign Up</button>
+            </div>
+        </EditForm>
+    </div>
+</section>
+
+@code {
+    private SignUpFormModel signupForm = new SignUpFormModel();
+
+}

@@ -1,0 +1,8 @@
+﻿.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.account-content {
+  flex-grow: 1;
+}

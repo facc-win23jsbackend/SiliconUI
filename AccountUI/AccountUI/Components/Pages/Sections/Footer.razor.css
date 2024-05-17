@@ -1,0 +1,27 @@
+﻿footer {
+  background-color: white;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+footer .container {
+  min-height: 100px;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #9397AD;
+}
+footer .container .social-media-box {
+  display: flex;
+  justify-content: center;
+}
+footer .container .social-media-box img {
+  margin-left: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+footer .container .social-media-box img:hover {
+  transform: scale(1.1);
+}
+footer .container p {
+  margin-top: 40px;
+}
