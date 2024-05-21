@@ -90,5 +90,9 @@
   {
     "outputFile": "Components/Pages/Singlecourses.razor.css",
     "inputFile": "Components/Pages/Singlecourses.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/Courses.razor.css",
+    "inputFile": "Components/Pages/Courses.razor.scss"
   }
 ]

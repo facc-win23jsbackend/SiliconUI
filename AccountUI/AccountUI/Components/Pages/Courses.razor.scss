@@ -1,0 +1,147 @@
+#courses {
+    background-color: white;
+    font-family: 'Manrope', sans-serif;
+
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 25px;
+        row-gap: 50px;
+
+
+
+
+        .course-box {
+            border-radius: 10px 10px 0 0;
+            border: 1px transparent;
+            color: #33354D;
+            position: relative;
+            box-shadow: 0px 0px 5px rgb(225, 225, 225);
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.02);
+            }
+
+            img {
+                border-radius: 10px 10px 0 0;
+            }
+
+            .save-course {
+                position: absolute;
+                display: flex;
+                top: 15px;
+                right: 15px;
+                height: 36px;
+                width: 36px;
+                background-color: white;
+                font-size: 20px;
+                border-radius: 30px;
+                padding: 20px;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .best-seller {
+                position: absolute;
+                display: flex;
+                top: 15px;
+                left: 15px;
+                background-color: #22C55E;
+                font-size: 0.8rem;
+                border: 1px solid #22C55E;
+                color: white;
+                border-radius: 5px;
+                padding: 3px 7px 3px 7px;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+
+            .image-box {
+
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .course-content {
+                padding: 30px 25px 20px 25px;
+
+                .pricing {
+                    display: flex;
+                    margin: 0;
+                    align-items: center;
+                    height: 20px;
+
+
+                    .sale-price {
+                        color: red;
+                        margin-right: 10px;
+                        font-size: 1.2rem;
+                    }
+
+                    .original-price {
+                        color: #9397AD;
+                        margin-left: 10px;
+                        font-size: 1.1rem;
+                        text-decoration: line-through;
+                        font-weight: 300;
+                    }
+                }
+
+
+                h2 {
+                    font-size: 1.3rem;
+                    font-weight: 900;
+                }
+
+                p {
+                    font-size: 1rem;
+                    color: #565973;
+                    margin-top: 20px;
+                }
+
+                h3 {
+                    color: #6366F1;
+                    font-weight: 700;
+                    font-size: 1.2rem;
+                }
+
+                .line {
+                    border-bottom: 1px solid #E2E5F1;
+                    margin-top: 20px;
+                }
+            }
+
+            .feedback-box {
+                display: flex;
+                padding: 5px 25px 5px 25px;
+                align-items: center;
+                color: #9397AD;
+                margin-bottom: 15px;
+
+
+
+                .fa-thumbs-up {
+                    margin-left: 20px;
+                }
+
+                p {
+                    margin: 0;
+                    margin-left: 5px;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}

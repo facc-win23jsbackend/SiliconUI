@@ -5,20 +5,51 @@
 <UseGetCourses Context="result">
 
     <ChildContent>
-        <ul>
-            @foreach (var course in result.Courses)
-            {
-                
-                <li>@course.IsBestseller</li>
-                <li>@course.Id</li>
-                <li>@course.Prices.Price</li>
-                <li>@course.Prices.Discount</li>
-                
 
+        <section id="courses">
+            <div class="container">
+                @foreach (var course in result.Courses)
+                {
+                    <div class="course-box">
+                        <div class="image-box">
+                            <img src="./images/@course.ImageUri" alt="">
+                        </div>
+                        @if (course.IsBestseller)
+                        {
+                            <div class="best-seller">
+                                <p>Best Seller</p>
+                            </div>
+                        }
+                        <div class="save-course">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </div>
+                        <div class="course-content">
+                            <h2>@course.Title</h2>
+                            <p>By @course.Authors.First().Name</p>
+                            <div class="pricing">
+                                @if (course.Prices.Discount != 0)
+                                {
+                                    <h3 class="sale-price">$@course.Prices.Discount</h3>
+                                    <h3 class="original-price">$@course.Prices.Price</h3>
+                                }
+                                else
+                                {
+                                    <h3>$@course.Prices.Price</h3>
+                                }
+                            </div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="feedback-box">
+                            <i class="fa-regular fa-clock"></i>
+                            <p>@course.Hours hours</p>
+                            <i class="fa-regular fa-thumbs-up"></i>
 
-            }
-
-        </ul>
+                            <p>@course.LikesInPercent % (@course.Likes)</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
 
 
     </ChildContent>
