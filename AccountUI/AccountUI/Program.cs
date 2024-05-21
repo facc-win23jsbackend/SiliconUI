@@ -17,6 +17,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddCoursesClient().ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7202/graphql/"));
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7202/") });
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, oidcOptions =>

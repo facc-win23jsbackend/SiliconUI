@@ -1,0 +1,40 @@
+﻿@using AccountUI.GraphQL.Components
+@rendermode InteractiveServer
+@page "/courses"
+
+<UseGetCourses Context="result">
+
+    <ChildContent>
+        <ul>
+            @foreach (var course in result.Courses)
+            {
+                
+                <li>@course.IsBestseller</li>
+                <li>@course.Id</li>
+                <li>@course.Prices.Price</li>
+                <li>@course.Prices.Discount</li>
+                
+
+
+            }
+
+        </ul>
+
+
+    </ChildContent>
+    <ErrorContent>
+        faaans
+
+    </ErrorContent>
+    <LoadingContent>
+        Loading ..
+    </LoadingContent>
+
+</UseGetCourses>
+
+
+
+
+@code {
+
+}

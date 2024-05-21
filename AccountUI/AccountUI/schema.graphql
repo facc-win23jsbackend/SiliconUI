@@ -1,0 +1,100 @@
+schema {
+  query: CourseQuery
+  mutation: CourseMutation
+}
+
+type CourseMutation {
+  createCourse(course: CoursesEntityInput!): CoursesEntity!
+}
+
+type CourseQuery {
+  courses: [CoursesEntity!]!
+  oneCourses(id: String!): CoursesEntity
+}
+
+type CoursesEntity {
+  id: String!
+  imageUri: String
+  imageHeaderUri: String
+  isBestseller: Boolean!
+  isDigital: Boolean!
+  categories: [String!]
+  title: String
+  ingress: String
+  starRating: Decimal!
+  reviews: String
+  likesInPercent: String
+  likes: String
+  hours: String
+  authors: [AuthorEntity!]
+  prices: PricesEntity
+  content: ContentEntity
+}
+
+input CoursesEntityInput {
+  id: String!
+  imageUri: String
+  imageHeaderUri: String
+  isBestseller: Boolean!
+  isDigital: Boolean!
+  categories: [String!]
+  title: String
+  ingress: String
+  starRating: Decimal!
+  reviews: String
+  likesInPercent: String
+  likes: String
+  hours: String
+  authors: [AuthorEntityInput!]
+  prices: PricesEntityInput
+  content: ContentEntityInput
+}
+
+type ContentEntity {
+  description: String
+  title: [String!]
+  programDetails: [ProgramDetailItemEntity!]
+}
+
+type PricesEntity {
+  currency: String
+  price: Decimal!
+  discount: Decimal!
+}
+
+type AuthorEntity {
+  name: String
+  authorImageUri: String
+}
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
+
+input AuthorEntityInput {
+  name: String
+  authorImageUri: String
+}
+
+input PricesEntityInput {
+  currency: String
+  price: Decimal!
+  discount: Decimal!
+}
+
+input ContentEntityInput {
+  description: String
+  title: [String!]
+  programDetails: [ProgramDetailItemEntityInput!]
+}
+
+input ProgramDetailItemEntityInput {
+  id: Int!
+  title: String
+  description: String
+}
+
+type ProgramDetailItemEntity {
+  id: Int!
+  title: String
+  description: String
+}
