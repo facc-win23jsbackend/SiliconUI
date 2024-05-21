@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "schema": [
+        "AccountUI/AccountUI/schema.graphql"
+      ],
+      "documents": [
+        "AccountUI/AccountUI/**/*.graphql"
+      ]
+    },
+    {
+      "schema": [
+        "AccountUI/AccountUI/bin/Debug/net8.0/schema.graphql"
+      ],
+      "documents": [
+        "AccountUI/AccountUI/bin/Debug/net8.0/**/*.graphql"
+      ]
+    }
+  ]
+}

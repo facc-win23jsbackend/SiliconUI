@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <GraphQL Remove="GetCourse.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\images\brands\brand-1.svg" />
     <None Include="wwwroot\images\brands\brand-2.svg" />
@@ -35,6 +39,7 @@
     <ProjectReference Include="..\AccountUI.Client\AccountUI.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
+    <PackageReference Include="StrawberryShake.Blazor" Version="13.9.4" />
   </ItemGroup>
 
 </Project>
