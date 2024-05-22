@@ -1,187 +1,157 @@
-﻿@page "/singlecourse"
-@using AccountUI.Client.Components
+﻿@using AccountUI.Client.Components
+@using AccountUI.GraphQL.Components
 @using Microsoft.AspNetCore.Components.Authorization
+@rendermode InteractiveServer
+@page "/courses/{id}"
 <PageTitle>Fullstack Web Developer Course from Scratch</PageTitle>
+
 
 <AuthorizeView>
     <NotAuthorized>
         <RedirectToLogin />
     </NotAuthorized>
     <Authorized>
-        <div class="single-course">
-            <section class="banner-section">
-                <img src="/images/courses-fullstack.svg" />
-                <div class="image-overlay"></div>
-                <div class="container">
-                    <div class="info-box">
-                        <div class="best-seller">
-                            Best Seller
-                        </div>
-                        <div class="digital">
-                            Digital
-                        </div>
-                    </div>
-                    <h1>Fullstack Web Developer Course from Scratch</h1>
-                    <p>Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.</p>
-                    <div class="course-meta">
-                        <span class="stars">★ ★ ★ ★ ☆ <span> (1.2K reviews)</span></span>
-                        <span><i class="fa-regular fa-thumbs-up"></i> 54 likes</span>
-                        <span><i class="fa-regular fa-clock"></i> 140 hours</span>
-                    </div>
-                    <div class="created-by">
-                        <img src="/images/avatar-1.svg" />
-                        <div class="text-content">
-                            <h3>Created by</h3>
-                            <p>Albert Flores</p>
-                        </div>
-                    </div>
-                </div>
+        @if (id is null)
+        {
+            <p>asdsadsad ..</p>
 
-            </section>
 
-            <section class="content-section">
-                <div class="container">
+        } else
+        {
+            <UseGetSingleCourses Context="result" Id="@id">
+                <ChildContent>
+                    @if (id is not null && result.OneCourses != null)
+                    {
+                        <div class="single-course">
+                            <section class="banner-section">
+                                <img src="/images/@result.OneCourses.ImageUri" />
+                                <div class="image-overlay"></div>
+                                <div class="container">
+                                    <div class="info-box">
+                                        @if (result.OneCourses.IsBestseller)
+                                        {
+                                            <div class="best-seller">Best Seller</div>
+                                        }
+                                        @if (result.OneCourses.IsDigital)
+                                        {
+                                            <div class="digital">Digital</div>
+                                        }
+                                    </div>
+                                    <h1>@result.OneCourses.Title</h1>
+                                    <p>@result.OneCourses.Ingress</p>
+                                    <div class="course-meta">
+                                        <span class="stars">★ ★ ★ ★ ☆ <span> (@result.OneCourses.Reviews reviews)</span></span>
+                                        <span><i class="fa-regular fa-thumbs-up"></i> @result.OneCourses.Likes likes</span>
+                                        <span><i class="fa-regular fa-clock"></i> @result.OneCourses.Hours hours</span>
+                                    </div>
+                                    <div class="created-by">
+                                        @if (result.OneCourses.Authors != null && result.OneCourses.Authors.Any())
+                                        {
+                                            <img src="/images/authors/avatar-AlbertFlores.svg" />
+                                            <div class="text-content">
+                                                <h3>Created by</h3>
+                                                <p>@result.OneCourses.Authors.First().Name</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </section>
 
-                    <div class="course-description">
-                        <div class="content1">
-                            <h1>Course Description</h1>
-                            <p>
-                                Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus<br />
-                                accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit,<br />
-                                tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum<br />
-                                quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.
-                            </p>
 
-                        </div>
-                        <div class="content2">
-                            <h2>What you'll learn</h2>
-                            <div class="text-box">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <p>Sed lectus donec amet eu turpis interdum.</p>
-                            </div>
-                            <div class="text-box">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <p>Nulla at consectetur vitae dignissim porttitor.</p>
-                            </div>
-                            <div class="text-box">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <p>Phasellus id vitae dui aliquet mi.</p>
-                            </div>
-                            <div class="text-box">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <p>Integer cursus vitae, odio feugiat iaculis aliquet diam, et purus.</p>
-                            </div>
-                            <div class="text-box">
-                                <i class="fa-regular fa-circle-check"></i>
-                                <p>In aenean dolor diam tortor orci eu.</p>
-                            </div>
+                            <section class="content-section">
+                                <div class="container">
+                                    <div class="course-description">
+                                        <div class="content1">
+                                            <h1>Course Description</h1>
+                                            <p>@result.OneCourses.Content?.Description</p>
+                                        </div>
+                                        <div class="content2">
+                                            <h2>What you'll learn</h2>
+                                            @if (result.OneCourses.Content?.Learn != null)
+                                            {
+                                                @foreach (var item in result.OneCourses.Content.Learn)
+                                                {
+                                                    <div class="text-box">
+                                                        <i class="fa-regular fa-circle-check"></i>
+                                                        <p>@item</p>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
 
-                        </div>
-                    </div>
 
-                    <aside>
+                                    <aside>
+                                        <h4>This Course Includes</h4>
+                                        @if (result.OneCourses.Content?.Includes != null)
+                                        {
+                                            foreach (var item in result.OneCourses.Content.Includes)
+                                            {
+                                                <div class="text-box">
+                                                    <i class="@GetIconClass(item)"></i>
+                                                    <p>@item</p>
+                                                </div>
+                                            }
+                                        }
 
-                        <h4>This course includes:</h4>
-                        <div class="text-box">
-                            <i class="fa-solid fa-desktop"></i>
-                            <p>148 hours on-demand video</p>
-                        </div>
-                        <div class="text-box">
-                            <i class="fa-regular fa-newspaper"></i>
-                            <p>18 articles</p>
-                        </div>
-                        <div class="text-box">
-                            <i class="fa-solid fa-download"></i>
-                            <p>25 downloadable resources</p>
-                        </div>
-                        <div class="text-box">
-                            <i class="fa-solid fa-infinity"></i>
-                            <p>Full lifetime access</p>
-                        </div>
-                        <div class="text-box">
-                            <i class="fa-solid fa-trophy"></i>
-                            <p>Certificate of completion</p>
-                        </div>
-                        <div class="course-price">
-                            <h2>$28.99</h2>
-                            <span>$49.00</span>
-                        </div>
-                        <NavLink class="btn-join" href="/account-details"><span>Join Course</span></NavLink>
-                    </aside>
-                </div>
-            </section>
+                                        <div class="course-price">
+                                            <h2>$@result.OneCourses.Prices?.Price</h2>
+                                            <span>$@result.OneCourses.Prices?.Discount</span>
+                                        </div>
+                                        <NavLink class="btn-join" href="/account-details"><span>Join Course</span></NavLink>
+                                    </aside>
+                                </div>
+                            </section>
 
-            <section class="details-section">
-                <div class="container">
-                    <h1>Program Details</h1>
-                    <div class="text-box">
-                        <div class="number-box">1</div>
-                        <div class="content-box">
-                            <h4>Introduction. Getting started</h4>
-                            <p>
-                                Nulla faucibus mauris pellentesque blandit faucibus non. Sit ut et at suspendisse<br />
-                                gravida hendrerit tempus placerat.
-                            </p>
+
+                            <section class="details-section">
+                                <div class="container">
+                                    <h1>Program Details</h1>
+                                    @if (result.OneCourses.Content?.ProgramDetails != null)
+                                    {
+                                        @foreach (var detail in result.OneCourses.Content.ProgramDetails)
+                                        {
+                                            <div class="text-box">
+                                                <div class="number-box">@detail.Id</div>
+                                                <div class="content-box">
+                                                    <h4>@detail.Title</h4>
+                                                    <p>@detail.Description</p>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </section>
                         </div>
-                    </div>
-                    <div class="text-box">
-                        <div class="number-box">2</div>
-                        <div class="content-box">
-                            <h4>The ultimate HTML developer: advanced HTML</h4>
-                            <p>
-                                Lobortis diam elit id nibh ultrices sed penatibus donec. Nibh iaculis eu sit cras ultricies.<br />
-                                Nam eu eget etiam egestas donec scelerisque ut ac enim. Vitae ac nisl, enim nec<br />
-                                accumsan vitae est.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-box">
-                        <div class="number-box">3</div>
-                        <div class="content-box">
-                            <h4>CSS & CSS3: basic</h4>
-                            <p>
-                                Duis euismod enim, facilisis risus tellus pharetra lectus diam neque. Nec ultrices mi<br />
-                                faucibus est. Magna ullamcorper potenti elementum ultricies auctor nec volutpat<br />
-                                augue.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-box">
-                        <div class="number-box">4</div>
-                        <div class="content-box">
-                            <h4>JavaScript basics for beginners</h4>
-                            <p>
-                                Morbi porttitor risus imperdiet a, nisl mattis. Amet, faucibus eget in platea vitae, velit,<br />
-                                erat eget velit. At lacus ut proin erat.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-box">
-                        <div class="number-box">5</div>
-                        <div class="content-box">
-                            <h4>Understanding APIs</h4>
-                            <p>
-                                Risus morbi euismod in congue scelerisque fusce pellentesque diam consequat. Nisi mauris<br />
-                                nibh sed est morbi amet arcu urna. Malesuada feugiat quisque consectetur<br />
-                                elementum diam vitae. Dictumst facilisis odio eu quis maecenas risus odio fames<br />
-                                bibendum.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-box">
-                        <div class="number-box">6</div>
-                        <div class="content-box">
-                            <h4>Python from beginner to advanced</h4>
-                            <p>
-                                Quis risus quisque diam diam. Volutpat neque eget eu faucibus sed urna fermentum<br />
-                                risus. Est, mauris morbi nibh massa.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+                    }
+                    
+
+                </ChildContent>
+                <ErrorContent>
+                    Error ..
+                </ErrorContent>
+                <LoadingContent>
+                    Loading ..
+                </LoadingContent>
+            </UseGetSingleCourses>
+        }
+
     </Authorized>
 </AuthorizeView>
 
 
+@code {
+    [Parameter]
+    public string? id { get; set; }
+
+    private string GetIconClass(string item)
+    {
+        
+        if (item.Contains("video")) return "fa-solid fa-desktop";
+        if (item.Contains("article")) return "fa-regular fa-newspaper";
+        if (item.Contains("downloadable")) return "fa-solid fa-download";
+        if (item.Contains("access")) return "fa-solid fa-infinity";
+        if (item.Contains("certificate")) return "fa-solid fa-trophy";
+        return "fa-solid fa-circle";
+    }
+}

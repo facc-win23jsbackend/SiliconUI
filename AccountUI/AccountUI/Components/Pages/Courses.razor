@@ -1,71 +1,74 @@
-﻿@using AccountUI.GraphQL.Components
+﻿@page "/courses"
+@using AccountUI.Client.Components
+@using AccountUI.GraphQL.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
-@page "/courses"
 
-<UseGetCourses Context="result">
-
-    <ChildContent>
-
-        <section id="courses">
-            <div class="container">
-                @foreach (var course in result.Courses)
-                {
-                    <div class="course-box">
-                        <div class="image-box">
-                            <img src="./images/@course.ImageUri" alt="">
-                        </div>
-                        @if (course.IsBestseller)
+<AuthorizeView>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+    <Authorized>
+        <UseGetCourses Context="result">
+            <ChildContent>
+                <section id="courses">
+                    <div class="container">
+                        @foreach (var course in result.Courses)
                         {
-                            <div class="best-seller">
-                                <p>Best Seller</p>
+                            <div class="course-box" @onclick="@(() => NavigateToCourse(course.Id))">
+                                <div class="image-box">
+                                    <img src="./images/@course.ImageUri" alt="">
+                                </div>
+                                @if (course.IsBestseller)
+                                {
+                                    <div class="best-seller">
+                                        <p>Best Seller</p>
+                                    </div>
+                                }
+                                <div class="save-course">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </div>
+                                <div class="course-content">
+                                    <h2>@course.Title</h2>
+                                    <p>By @course.Authors.First().Name</p>
+                                    <div class="pricing">
+                                        @if (course.Prices.Discount != 0)
+                                        {
+                                            <h3 class="sale-price">$@course.Prices.Discount</h3>
+                                            <h3 class="original-price">$@course.Prices.Price</h3>
+                                        }
+                                        else
+                                        {
+                                            <h3>$@course.Prices.Price</h3>
+                                        }
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                                <div class="feedback-box">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <p>@course.Hours hours</p>
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <p>@course.LikesInPercent % (@course.Likes)</p>
+                                </div>
                             </div>
                         }
-                        <div class="save-course">
-                            <i class="fa-regular fa-bookmark"></i>
-                        </div>
-                        <div class="course-content">
-                            <h2>@course.Title</h2>
-                            <p>By @course.Authors.First().Name</p>
-                            <div class="pricing">
-                                @if (course.Prices.Discount != 0)
-                                {
-                                    <h3 class="sale-price">$@course.Prices.Discount</h3>
-                                    <h3 class="original-price">$@course.Prices.Price</h3>
-                                }
-                                else
-                                {
-                                    <h3>$@course.Prices.Price</h3>
-                                }
-                            </div>
-                            <div class="line"></div>
-                        </div>
-                        <div class="feedback-box">
-                            <i class="fa-regular fa-clock"></i>
-                            <p>@course.Hours hours</p>
-                            <i class="fa-regular fa-thumbs-up"></i>
-
-                            <p>@course.LikesInPercent % (@course.Likes)</p>
-                        </div>
                     </div>
-                }
-            </div>
-        </section>
-
-
-    </ChildContent>
-    <ErrorContent>
-        faaans
-
-    </ErrorContent>
-    <LoadingContent>
-        Loading ..
-    </LoadingContent>
-
-</UseGetCourses>
-
-
-
+                </section>
+            </ChildContent>
+            <ErrorContent>
+                faaans
+            </ErrorContent>
+            <LoadingContent>
+                Loading ..
+            </LoadingContent>
+        </UseGetCourses>
+    </Authorized>
+</AuthorizeView>
 
 @code {
-
+    private void NavigateToCourse(string courseId)
+    {
+        NavigationManager.NavigateTo($"/courses/{courseId}");
+    }
 }
