@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <GraphQL Remove="GetCourse.graphql" />
+    <GraphQL Remove="GetSingleCourse.graphql" />
   </ItemGroup>
 
   <ItemGroup>

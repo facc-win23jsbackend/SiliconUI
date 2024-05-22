@@ -1,0 +1,35 @@
+query GetSingleCourses($id: String!) {
+  oneCourses(id: $id) {
+    id,
+    imageUri,
+    imageHeaderUri,
+    isBestseller,
+    isDigital,
+    categories,
+    title,
+    ingress,
+    starRating,
+    reviews,
+    likesInPercent,
+    likes,
+    hours,
+    authors {
+      name,
+      authorImageUri
+    },
+    prices {
+      currency,
+      price,
+      discount
+    },
+    content {
+      description,
+      includes,
+      programDetails {
+        id,
+        title,
+        description
+      }
+    }
+  }
+}

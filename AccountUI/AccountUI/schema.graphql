@@ -52,7 +52,7 @@ input CoursesEntityInput {
 
 type ContentEntity {
   description: String
-  title: [String!]
+  includes: [String!]
   programDetails: [ProgramDetailItemEntity!]
 }
 
@@ -83,7 +83,7 @@ input PricesEntityInput {
 
 input ContentEntityInput {
   description: String
-  title: [String!]
+  includes: [String!]
   programDetails: [ProgramDetailItemEntityInput!]
 }
 
