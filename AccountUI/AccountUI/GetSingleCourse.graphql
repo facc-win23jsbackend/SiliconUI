@@ -25,6 +25,7 @@ query GetSingleCourses($id: String!) {
     content {
       description,
       includes,
+      learn,
       programDetails {
         id,
         title,

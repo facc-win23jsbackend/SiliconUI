@@ -67,13 +67,13 @@
                                         </div>
                                         <div class="content2">
                                             <h2>What you'll learn</h2>
-                                            @if (result.OneCourses.Content?.ProgramDetails != null)
+                                            @if (result.OneCourses.Content?.Learn != null)
                                             {
-                                                @foreach (var item in result.OneCourses.Content.ProgramDetails)
+                                                @foreach (var item in result.OneCourses.Content.Learn)
                                                 {
                                                     <div class="text-box">
                                                         <i class="fa-regular fa-circle-check"></i>
-                                                        <p>@item.Title</p>
+                                                        <p>@item</p>
                                                     </div>
                                                 }
                                             }
@@ -83,7 +83,7 @@
 
                                     <aside>
                                         <h4>This Course Includes</h4>
-                                        @if (result.OneCourses.Content.Includes != null)
+                                        @if (result.OneCourses.Content?.Includes != null)
                                         {
                                             foreach (var item in result.OneCourses.Content.Includes)
                                             {
