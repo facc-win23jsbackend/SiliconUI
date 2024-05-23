@@ -18,15 +18,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCoursesClient().ConfigureHttpClient(async (serviceProvider, c) => {
     var contextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
     var token = await contextAccessor.HttpContext.GetTokenAsync("access_token");
-    c.BaseAddress = new Uri("https://localhost:7202/graphql/");
+    c.BaseAddress = new Uri("https://coursesapi-jsbackend.azurewebsites.net/graphql");
     c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     });
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7202/") });
+
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, oidcOptions =>
@@ -45,9 +48,7 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
 
 builder.Services.ConfigureCookieOidcRefresh(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
-
 builder.Services.AddAuthorization();
-
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingAuthenticationStateProvider>();
 
 var app = builder.Build();
@@ -65,12 +66,8 @@ else
 }
 
 app.UseHttpsRedirection();
-
-
 app.UseStaticFiles();
 app.UseAntiforgery();
-
-
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
