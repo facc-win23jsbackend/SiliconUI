@@ -104,6 +104,7 @@
 .single-course .content-section .container .course-description .content1 p {
   margin-top: 20px;
   color: #565973;
+  padding-right: 100px;
 }
 .single-course .content-section .container .course-description .content2 {
   margin-top: 50px;
@@ -125,6 +126,7 @@
   margin: 0;
   line-height: 1.5;
   margin-left: 10px;
+  padding-right: 100px;
 }
 .single-course .content-section .container aside {
   width: 400px;

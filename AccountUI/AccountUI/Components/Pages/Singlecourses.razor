@@ -82,7 +82,7 @@
 
 
                                     <aside>
-                                        <h4>This Course Includes</h4>
+                                        <h4>This course includes:</h4>
                                         @if (result.OneCourses.Content?.Includes != null)
                                         {
                                             foreach (var item in result.OneCourses.Content.Includes)
@@ -96,7 +96,11 @@
 
                                         <div class="course-price">
                                             <h2>$@result.OneCourses.Prices?.Price</h2>
-                                            <span>$@result.OneCourses.Prices?.Discount</span>
+                                            @if (result.OneCourses.Prices.Discount > 0)
+                                            {
+                                                <span>$@result.OneCourses.Prices?.Discount</span>
+                                            }
+                                            
                                         </div>
                                         <NavLink class="btn-join" href="/account-details"><span>Join Course</span></NavLink>
                                     </aside>
@@ -151,7 +155,7 @@
         if (item.Contains("article")) return "fa-regular fa-newspaper";
         if (item.Contains("downloadable")) return "fa-solid fa-download";
         if (item.Contains("access")) return "fa-solid fa-infinity";
-        if (item.Contains("certificate")) return "fa-solid fa-trophy";
+        if (item.Contains("Certificate")) return "fa-solid fa-trophy";
         return "fa-solid fa-circle";
     }
 }

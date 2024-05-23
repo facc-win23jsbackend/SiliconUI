@@ -7,7 +7,7 @@ public class UserInfo
     public required string UserId { get; init; }
     public required string Name { get; init; }
 
-    public const string UserIdClaimType = ClaimTypes.NameIdentifier;
+    public const string UserIdClaimType = "sub";
     public const string NameClaimType = "name";
 
     public static UserInfo FromClaimsPrincipal(ClaimsPrincipal principal) =>

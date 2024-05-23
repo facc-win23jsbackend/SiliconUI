@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Diagnostics.Metrics;
 using AccountUI.Extensions;
 using AccountUI.Client.Components;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +19,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddCoursesClient().ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7202/graphql/"));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddCoursesClient().ConfigureHttpClient(async (serviceProvider, c) => {
+    var contextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+    var token = await contextAccessor.HttpContext.GetTokenAsync("access_token");
+    c.BaseAddress = new Uri("https://localhost:7202/graphql/");
+    c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+    });
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7202/") });
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
