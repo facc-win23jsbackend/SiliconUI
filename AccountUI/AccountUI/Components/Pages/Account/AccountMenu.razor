@@ -1,10 +1,12 @@
 ﻿@using AccountUI.Client.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
 
 <div class="account-menu">
     <div class="user-profile text-center mb-4">
         <img src="images/avatar-1.svg" alt="User Image" class="rounded-circle" style="width: 120px; height: 120px;" />
-        <h4>John Doe</h4>
-        <p>example@gmail.com</p>
+        <h4>@FullName</h4>
+        <p>@Email</p>
     </div>
     <nav class="nav">
         <NavLink class="navLink" href="/account-details">
@@ -34,6 +36,24 @@
 
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthState { get; set; }protected override async Task OnInitializedAsync()
+    {
+        if (AuthState == null)
+        {
+            return;
+        }
 
+        var authState = await AuthState;
+        claims = authState.User.Claims;
+        Email = authState.User.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
+        FullName = authState.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value;
+
+    }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string? Email { get; set; }
+    private string? FullName { get; set; }
 
 }
