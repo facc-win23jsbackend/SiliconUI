@@ -3,8 +3,8 @@ namespace AccountUI.Models;
 
 public class AccountDetailsFormModel
 {
-    public string UserId { get; set; } = null!;
-
+    public string? UserId { get; set; }
+    public int Id { get; set; }
 
     [Display(Name = "First name", Prompt = "Enter your first name")]
     [Required(ErrorMessage = "First name is required")]
@@ -39,11 +39,11 @@ public class AccountDetailsFormModel
 
     [Display(Name = "Address line 1", Prompt = "Enter your address line")]
     [Required(ErrorMessage = "Address line is required")]
-    public string Addressline_1 { get; set; } = null!;
+    public string StreetName { get; set; } = null!;
 
 
     [Display(Name = "Address line 2", Prompt = "Enter your second address line (optional)")]
-    public string? Addressline_2 { get; set; }
+    public string? StreetName_2 { get; set; }
 
 
     [Display(Name = "Postal Code", Prompt = "Enter your postal code")]

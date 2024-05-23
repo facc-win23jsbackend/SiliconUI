@@ -1,9 +1,10 @@
 ﻿@page "/account-details"
 @rendermode InteractiveServer
-@using AccountUI.Components.Layout
+@using System.Net.Http.Headers
 @using AccountUI.Models
-@inject NavigationManager Navigation
-
+@using Microsoft.AspNetCore.Authentication
+@inject IHttpContextAccessor httpContextAccessor
+@inject HttpClient Http
 
 <PageTitle>Silicon - Account Details</PageTitle>
 <AccountLayout>
@@ -53,12 +54,12 @@
                 </div>
                 <div id="streetname1" class="input-group">
                     <label for="Streetname1-Details">Address line 1*</label>
-                    <InputText id="Streetname1-Details" @bind-Value="accountDetails.Addressline_1" placeholder="Enter your address.." />
-                    <ValidationMessage For="@(() => accountDetails.Addressline_1)" class="validation-message" />
+                    <InputText id="Streetname1-Details" @bind-Value="accountDetails.StreetName" placeholder="Enter your address.." />
+                    <ValidationMessage For="@(() => accountDetails.StreetName)" class="validation-message" />
                 </div>
                 <div id="streetname2" class="input-group">
                     <label for="Streetname2-Details">Address line 2 (optional)</label>
-                    <InputText id="Streetname2-Details" @bind-Value="accountDetails.Addressline_2" class="validation-message" placeholder="Enter your second address (optional).." />
+                    <InputText id="Streetname2-Details" @bind-Value="accountDetails.StreetName_2" class="validation-message" placeholder="Enter your second address (optional).." />
                 </div>
                 <div id="postal-code" class="input-group">
                     <label for="Postalcode-Details">Postal code*</label>
@@ -82,13 +83,69 @@
 </AccountLayout>
 
 @code {
-    private AccountDetailsFormModel accountDetails = new AccountDetailsFormModel();
+    private AccountDetailsFormModel accountDetails = new();
     private bool formSubmitted = false;
     private bool formInvalid = false;
 
-    private void HandleValidSubmit()
+    
+
+    protected override async Task OnInitializedAsync()
     {
-        formSubmitted = true;
+        try
+        {
+            var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            accountDetails = await Http.GetFromJsonAsync<AccountDetailsFormModel>($"https://jsbackend-customerapi.azurewebsites.net/api/customers/user") ?? new AccountDetailsFormModel();
+        }
+        catch (Exception e)
+        {
+            accountDetails = new AccountDetailsFormModel();
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var hasCustomer = !string.IsNullOrEmpty(accountDetails?.UserId) && accountDetails?.UserId?.Length > 5;
+        bool ok;
+        if (hasCustomer)
+        {
+            ok = await UpdateCustomer();
+        }
+        else
+        {
+           ok = await CreateCustomer();
+        }
+        
+        formSubmitted = ok;
+    }
+    
+    private async Task<bool> UpdateCustomer()
+    {
+        var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await Http.PutAsJsonAsync($"https://jsbackend-customerapi.azurewebsites.net/api/customers/{accountDetails.Id}", accountDetails);
+        
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+    private async Task<bool> CreateCustomer()
+    {
+        var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await Http.PostAsJsonAsync($"https://jsbackend-customerapi.azurewebsites.net/api/customers", accountDetails);
+        
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void HandleInvalidSubmit()
