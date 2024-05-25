@@ -12,6 +12,6 @@ public class NotificationsFormModel
     [RegularExpression(@"^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$", ErrorMessage = "Invalid email")]
     public string Email { get; set; } = null!;
 
-    public bool SubscribeToNewsletter { get; set; }
+    public bool IsActive { get; set; }
 
 }
