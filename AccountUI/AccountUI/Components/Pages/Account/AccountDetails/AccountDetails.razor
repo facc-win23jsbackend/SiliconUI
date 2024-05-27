@@ -72,7 +72,7 @@
                     <ValidationMessage For="@(() => accountDetails.City)" class="validation-message" />
                 </div>
                 <div class="button-box">
-                    <button type="button" id="form-button-save" class="btn-gray">Cancel</button>
+                    <button type="button" id="form-button-save" class="btn-gray" @onclick="RedirectToHome">Cancel</button>
                     <button type="submit" id="form-button-cancel" class="btn-theme" asp-page-handler="SaveBasicInfo">Save changes</button>
                 </div>
             </div>
@@ -152,5 +152,10 @@
     {
         formInvalid = true;
         formSubmitted = false;
+    }
+
+    private void RedirectToHome()
+    {
+        Navigation.NavigateTo("/Home");
     }
 }

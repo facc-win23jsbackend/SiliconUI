@@ -3,6 +3,7 @@
 @using AccountUI.Components.Layout
 @using AccountUI.Models
 @using Microsoft.AspNetCore.Http
+@inject NavigationManager Navigation
 @using System.Net.Http.Headers
 @using Microsoft.AspNetCore.Authentication
 @inject IHttpContextAccessor httpContextAccessor
@@ -43,7 +44,7 @@
 
 
                 <div class="button-box">
-                    <button type="button" class="btn-gray">Cancel</button>
+                    <button type="button" class="btn-gray" @onclick="RedirectToAccountDetails">Cancel</button>
                     <button type="submit" class="btn-theme">Save changes</button>
                 </div>
 
@@ -58,6 +59,7 @@
 
 @code {
 
+
     private NotificationsFormModel notificationsDetails = new();
     private bool formSubmitted = false;
     private bool formInvalid = false;
@@ -68,16 +70,19 @@
         {
             var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
             Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            notificationsDetails = await Http.GetFromJsonAsync<NotificationsFormModel>($"https://jsbackend-customerapi.azurewebsites.net/api/notifications/user") ?? new NotificationsFormModel();
+            notificationsDetails = await Http.GetFromJsonAsync<NotificationsFormModel>("https://localhost:7076/api/notifications/user") ?? new NotificationsFormModel();
         }
         catch (Exception e)
         {
+            Console.WriteLine($"Exception in OnInitializedAsync: {e.Message}");
             notificationsDetails = new NotificationsFormModel();
         }
     }
 
     private async Task HandleValidSubmit()
     {
+        Console.WriteLine("Valid submission triggered");
+
         var hasNotifications = !string.IsNullOrEmpty(notificationsDetails?.UserId) && notificationsDetails?.UserId?.Length > 5;
         bool ok;
         if (hasNotifications)
@@ -90,17 +95,31 @@
         }
 
         formSubmitted = ok;
+        Console.WriteLine($"Operation successful: {ok}");
     }
 
     private async Task<bool> UpdateNotifications()
     {
-        var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        var response = await Http.PutAsJsonAsync($"https://jsbackend-customerapi.azurewebsites.net/api/notifications/{notificationsDetails.UserId}", notificationsDetails);
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            return true;
+            var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await Http.PutAsJsonAsync($"https://localhost:7076/api/notifications/{notificationsDetails.UserId}", notificationsDetails);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("UpdateNotifications successful");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"UpdateNotifications failed: {response.ReasonPhrase}");
+                Console.WriteLine($"Response StatusCode: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception in UpdateNotifications: {ex.Message}");
         }
 
         return false;
@@ -108,13 +127,25 @@
 
     private async Task<bool> CreateNotifications()
     {
-        var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        var response = await Http.PostAsJsonAsync($"https://jsbackend-customerapi.azurewebsites.net/api/notifications", notificationsDetails);
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            return true;
+            var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await Http.PostAsJsonAsync("https://localhost:7076/api/notifications", notificationsDetails);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("CreateNotifications successful");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"CreateNotifications failed: {response.ReasonPhrase}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception in CreateNotifications: {ex.Message}");
         }
 
         return false;
@@ -122,7 +153,17 @@
 
     private void HandleInvalidSubmit()
     {
+        Console.WriteLine("Invalid submission triggered");
         formInvalid = true;
         formSubmitted = false;
+
     }
+
+    private void RedirectToAccountDetails()
+    {
+        Navigation.NavigateTo("/account-details");
+    }
+
+    
+
 }
