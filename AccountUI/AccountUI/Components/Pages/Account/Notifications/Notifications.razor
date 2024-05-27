@@ -2,6 +2,11 @@
 @rendermode InteractiveServer
 @using AccountUI.Components.Layout
 @using AccountUI.Models
+@using Microsoft.AspNetCore.Http
+@using System.Net.Http.Headers
+@using Microsoft.AspNetCore.Authentication
+@inject IHttpContextAccessor httpContextAccessor
+@inject HttpClient Http
 
 <PageTitle>Silicon - Notifications</PageTitle>
 <AccountLayout>
@@ -53,13 +58,66 @@
 
 @code {
 
-    private NotificationsFormModel notificationsDetails = new NotificationsFormModel();
+    private NotificationsFormModel notificationsDetails = new();
     private bool formSubmitted = false;
     private bool formInvalid = false;
 
-    private void HandleValidSubmit()
+    protected override async Task OnInitializedAsync()
     {
-        formSubmitted = true;
+        try
+        {
+            var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            notificationsDetails = await Http.GetFromJsonAsync<NotificationsFormModel>($"https://jsbackend-customerapi.azurewebsites.net/api/notifications/user") ?? new NotificationsFormModel();
+        }
+        catch (Exception e)
+        {
+            notificationsDetails = new NotificationsFormModel();
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var hasNotifications = !string.IsNullOrEmpty(notificationsDetails?.UserId) && notificationsDetails?.UserId?.Length > 5;
+        bool ok;
+        if (hasNotifications)
+        {
+            ok = await UpdateNotifications();
+        }
+        else
+        {
+            ok = await CreateNotifications();
+        }
+
+        formSubmitted = ok;
+    }
+
+    private async Task<bool> UpdateNotifications()
+    {
+        var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await Http.PutAsJsonAsync($"https://jsbackend-customerapi.azurewebsites.net/api/notifications/{notificationsDetails.UserId}", notificationsDetails);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private async Task<bool> CreateNotifications()
+    {
+        var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await Http.PostAsJsonAsync($"https://jsbackend-customerapi.azurewebsites.net/api/notifications", notificationsDetails);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void HandleInvalidSubmit()
