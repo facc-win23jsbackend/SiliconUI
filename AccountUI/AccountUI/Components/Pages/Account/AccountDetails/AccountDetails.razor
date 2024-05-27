@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authentication
 @inject IHttpContextAccessor httpContextAccessor
 @inject HttpClient Http
+@inject IConfiguration configuration
 
 <PageTitle>Silicon - Account Details</PageTitle>
 <AccountLayout>
@@ -86,6 +87,7 @@
     private AccountDetailsFormModel accountDetails = new();
     private bool formSubmitted = false;
     private bool formInvalid = false;
+    private string? customersApiUrl;
 
     
 
@@ -93,9 +95,10 @@
     {
         try
         {
+            customersApiUrl = configuration["API:Customers"]!;
             var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
             Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            accountDetails = await Http.GetFromJsonAsync<AccountDetailsFormModel>($"https://jsbackend-customerapi.azurewebsites.net/api/customers/user") ?? new AccountDetailsFormModel();
+            accountDetails = await Http.GetFromJsonAsync<AccountDetailsFormModel>($"{customersApiUrl}/user") ?? new AccountDetailsFormModel();
         }
         catch (Exception e)
         {

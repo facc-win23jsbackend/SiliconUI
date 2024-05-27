@@ -8,6 +8,7 @@
 @using Microsoft.AspNetCore.Authentication
 @inject IHttpContextAccessor httpContextAccessor
 @inject HttpClient Http
+@inject IConfiguration configuration
 
 <PageTitle>Silicon - Notifications</PageTitle>
 <AccountLayout>
@@ -40,6 +41,7 @@
                         <span class="slider round"></span>
                     </label>
                     <span class="subscribeNewsletter">Subscribe to Newsletter</span>
+                   
                 </div>
 
 
@@ -63,14 +65,17 @@
     private NotificationsFormModel notificationsDetails = new();
     private bool formSubmitted = false;
     private bool formInvalid = false;
+    private string? notificationsApiUrl;
+
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            notificationsApiUrl = configuration["API:Notifications"]!;
             var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
             Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            notificationsDetails = await Http.GetFromJsonAsync<NotificationsFormModel>("https://localhost:7076/api/notifications/user") ?? new NotificationsFormModel();
+            notificationsDetails = await Http.GetFromJsonAsync<NotificationsFormModel>($"{notificationsApiUrl}/user") ?? new NotificationsFormModel();
         }
         catch (Exception e)
         {
@@ -92,6 +97,8 @@
         else
         {
             ok = await CreateNotifications();
+            Navigation.NavigateTo("/notifications", forceLoad: true);
+
         }
 
         formSubmitted = ok;
@@ -104,7 +111,7 @@
         {
             var token = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
             Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await Http.PutAsJsonAsync($"https://localhost:7076/api/notifications/{notificationsDetails.UserId}", notificationsDetails);
+            var response = await Http.PutAsJsonAsync($"{notificationsApiUrl}/{notificationsDetails.UserId}", notificationsDetails);
 
             if (response.IsSuccessStatusCode)
             {
@@ -136,7 +143,10 @@
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("CreateNotifications successful");
+
+                
                 return true;
+                
             }
             else
             {
